@@ -23,7 +23,7 @@ func main() {
 		v.AllOn()
 		time.Sleep(time.Second)
 	}
-	for k, v = range pfd.Leds {
+	for k, v := range pfd.Leds {
 		v.AllOff()
 	}
 }
