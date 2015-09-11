@@ -10,8 +10,9 @@ import (
 	"time"
 )
 
-func main() {
+var progress int
 
+func main() {
 	// Render engine
 	r := render.New(render.Options{
 		Layout: "layout",
@@ -20,10 +21,13 @@ func main() {
 	// Handlers
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		r.HTML(w, http.StatusOK, "home", nil)
+		r.HTML(w, http.StatusOK, "home", progress)
+	})
+	mux.HandleFunc("/about", func(w http.ResponseWriter, req *http.Request) {
+		r.HTML(w, http.StatusOK, "about", nil)
 	})
 	mux.HandleFunc("/blink", func(w http.ResponseWriter, req *http.Request) {
-		testLed()
+		go testLed()
 		r.Text(w, http.StatusOK, "OK")
 	})
 
@@ -34,7 +38,6 @@ func main() {
 }
 
 func testLed() {
-
 	// creates a new pifacedigital instance
 	pfd := piface.NewPiFaceDigital(spi.DEFAULT_HARDWARE_ADDR, spi.DEFAULT_BUS, spi.DEFAULT_CHIP)
 
@@ -44,7 +47,10 @@ func testLed() {
 		fmt.Printf("Error on init board: %s", err)
 		return
 	}
-	pfd.Leds[0].Toggle()
-	time.Sleep(time.Second)
-	pfd.Leds[0].Toggle()
+	for i := 0; i < 10; i++ {
+		progress = i * 10
+		pfd.Leds[0].Toggle()
+		time.Sleep(time.Second)
+		pfd.Leds[0].Toggle()
+	}
 }

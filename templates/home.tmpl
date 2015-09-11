@@ -1,1 +1,9 @@
 <h1> Welcome </h1>
+<h2> Progress: {{.}} </h2>
+<div class="progress">
+	<div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="{{.}}" aria-valuemin="0" aria-valuemax="100" style="width: {{.}}%">
+		<span class="sr-only">{{.}}% Complete</span>
+	</div>
+</div>
+<button type="button" class="btn btn-info" id="testButton">Test System</button>
+<script src="/js/home.js" defer></script>
