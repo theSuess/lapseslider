@@ -19,12 +19,11 @@ func main() {
 		return
 	}
 
-	// blink time!!
-	fmt.Println("Blinking led 7 each second")
-	pfd.Leds[6].Toggle()
-	for {
-		pfd.Leds[7].Toggle()
-		pfd.Leds[6].Toggle()
+	for k, v := range pfd.Leds {
+		v.AllOn()
 		time.Sleep(time.Second)
+	}
+	for k, v = range pfd.Leds {
+		v.AllOff()
 	}
 }
