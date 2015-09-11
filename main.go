@@ -47,10 +47,11 @@ func testLed() {
 		fmt.Printf("Error on init board: %s", err)
 		return
 	}
-	for i := 0; i < 10; i++ {
+	for i := 0; i <= 10; i++ {
 		progress = i * 10
 		pfd.Leds[0].Toggle()
 		time.Sleep(time.Second)
 		pfd.Leds[0].Toggle()
+		time.Sleep(time.Second)
 	}
 }
