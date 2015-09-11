@@ -19,11 +19,10 @@ func main() {
 		return
 	}
 
-	for _, v := range pfd.Leds {
-		v.AllOn()
+	for {
+		if pfd.InputPins[1].Value == 1 {
+			pfd.Leds[7].Toggle()
+		}
 		time.Sleep(time.Second)
-	}
-	for _, v := range pfd.Leds {
-		v.AllOff()
 	}
 }
