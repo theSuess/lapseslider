@@ -19,11 +19,11 @@ func main() {
 		return
 	}
 
-	for k, v := range pfd.Leds {
+	for _, v := range pfd.Leds {
 		v.AllOn()
 		time.Sleep(time.Second)
 	}
-	for k, v := range pfd.Leds {
+	for _, v := range pfd.Leds {
 		v.AllOff()
 	}
 }
