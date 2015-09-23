@@ -27,7 +27,7 @@ func main() {
 		r.HTML(w, http.StatusOK, "about", nil)
 	})
 	mux.HandleFunc("/blink", func(w http.ResponseWriter, req *http.Request) {
-		go testLed()
+		go testMotor()
 		r.Text(w, http.StatusOK, "OK")
 	})
 
@@ -37,24 +37,6 @@ func main() {
 	n.Run(":3000")
 }
 
-func testLed() {
-	// creates a new pifacedigital instance
-	pfd := piface.NewPiFaceDigital(spi.DEFAULT_HARDWARE_ADDR, spi.DEFAULT_BUS, spi.DEFAULT_CHIP)
-
-	// initializes pifacedigital board
-	err := pfd.InitBoard()
-	if err != nil {
-		fmt.Printf("Error on init board: %s", err)
-		return
-	}
-	for i := 0; i <= 10; i++ {
-		progress = i * 10
-		pfd.Leds[0].Toggle()
-		time.Sleep(time.Second)
-		pfd.Leds[0].Toggle()
-		time.Sleep(time.Second)
-	}
-}
 func testMotor() {
 	// creates a new pifacedigital instance
 	pfd := piface.NewPiFaceDigital(spi.DEFAULT_HARDWARE_ADDR, spi.DEFAULT_BUS, spi.DEFAULT_CHIP)
