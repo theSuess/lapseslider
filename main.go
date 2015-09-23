@@ -55,3 +55,17 @@ func testLed() {
 		time.Sleep(time.Second)
 	}
 }
+func testMotor() {
+	// creates a new pifacedigital instance
+	pfd := piface.NewPiFaceDigital(spi.DEFAULT_HARDWARE_ADDR, spi.DEFAULT_BUS, spi.DEFAULT_CHIP)
+
+	// initializes pifacedigital board
+	err := pfd.InitBoard()
+	if err != nil {
+		fmt.Printf("Error on init board: %s", err)
+		return
+	}
+	pfd.OutputPins[0].Toggle()
+	time.Sleep(time.Second * 5)
+	pfd.OutputPins[0].Toggle()
+}
