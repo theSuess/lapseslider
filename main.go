@@ -34,6 +34,7 @@ func main() {
 		stepsPerMinute, _ := strconv.Atoi(req.FormValue("steps"))
 		var hours, minutes, seconds int
 		fmt.Sscanf(time, "%d:%d:%d", &hours, &minutes, &seconds)
+		fmt.Println(hours, minutes, seconds)
 		go startLapse((hours*3600)+(minutes*60)+seconds, stepsPerMinute)
 		r.HTML(w, http.StatusOK, "home", progress)
 	}).Methods("POST")
