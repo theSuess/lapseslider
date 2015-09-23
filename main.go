@@ -13,7 +13,6 @@ import (
 )
 
 var progress int
-var running bool
 
 func main() {
 	// Render engine
@@ -46,8 +45,11 @@ func main() {
 }
 
 func startLapse(seconds int, stepsPerMinute int) {
-	running = true
-	seconds = seconds * 10
+	go spin(stepsPerMinute)
+	time.Sleep(time.Duration(int(time.Second) * seconds))
+}
+
+func spin(stepsPerMinute int) {
 	var pauseTime float64
 	pauseTime = float64(stepsPerMinute) / float64(60.0)
 	pfd := piface.NewPiFaceDigital(spi.DEFAULT_HARDWARE_ADDR, spi.DEFAULT_BUS, spi.DEFAULT_CHIP)
@@ -59,10 +61,12 @@ func startLapse(seconds int, stepsPerMinute int) {
 		return
 	}
 
-	for i := 0; i < seconds && running; i++ {
+	pfd.OutputPins[0].SetValue(0)
+	for {
+		pfd.OutputPins[0].Toggle()
+		time.Sleep(time.Second / 10)
 		pfd.OutputPins[0].Toggle()
 		time.Sleep(time.Duration(float64(time.Second) * pauseTime))
-		pfd.OutputPins[0].Toggle()
 	}
 }
 
