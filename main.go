@@ -74,6 +74,10 @@ func spin(stepsPerMinute int, invert bool) {
 		pfd.OutputPins[2].Toggle()
 		time.Sleep(time.Second / 10)
 		pfd.OutputPins[2].Toggle()
+		if pfd.InputPins[0].Value() == 1 {
+			pfd.Relays[0].Toggle()
+			pfd.Relays[1].Toggle()
+		}
 		time.Sleep(time.Duration(float64(time.Second) * pauseTime))
 	}
 }
