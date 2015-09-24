@@ -1,14 +1,11 @@
 <h1> Welcome </h1>
-<h2> Progress: {{.}} </h2>
-<div class="progress">
-	<div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="{{.}}" aria-valuemin="0" aria-valuemax="100" style="width: {{.}}%">
-		<span class="sr-only">{{.}}% Complete</span>
+<form action="/start" method="POST" class="form-inline">
+	<div class="form-group">
+		<label for="time">Time (HH:MM:SS)</label>
+		<input type="text" id="time" class="form-control" pattern="[0-9][0-9]:[0-5][0-9]:[0-9]" name="time">
+		<label for="steps">Steps per minute</label>
+		<input type="number"id="steps" name="steps" class="form-control">
+		<input type="submit" class="btn btn-default">
 	</div>
-</div>
-<button type="button" class="btn btn-info" id="testButton">Test System</button>
-<form action="/start" method="POST">
-	<input type="text" pattern="[0-9][0-9]:[0-5][0-9]:[0-9]" name="time">
-	<input type="number" name="steps">
-	<input type="submit">
 </form>
 <script src="/js/home.js" defer></script>

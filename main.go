@@ -12,7 +12,6 @@ import (
 	"time"
 )
 
-var progress int
 var running bool
 
 func main() {
@@ -24,7 +23,7 @@ func main() {
 	// Handlers
 	router := mux.NewRouter()
 	router.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		r.HTML(w, http.StatusOK, "home", progress)
+		r.HTML(w, http.StatusOK, "home", nil)
 	})
 	router.HandleFunc("/about", func(w http.ResponseWriter, req *http.Request) {
 		r.HTML(w, http.StatusOK, "about", nil)
@@ -36,7 +35,7 @@ func main() {
 		fmt.Sscanf(time, "%d:%d:%d", &hours, &minutes, &seconds)
 		fmt.Println(hours, minutes, seconds)
 		go startLapse((hours*3600)+(minutes*60)+seconds, stepsPerMinute)
-		r.HTML(w, http.StatusOK, "home", progress)
+		r.HTML(w, http.StatusOK, "home", nil)
 	}).Methods("POST")
 
 	// HTTP Server
