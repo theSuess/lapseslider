@@ -61,11 +61,11 @@ func spin(stepsPerMinute int) {
 		return
 	}
 
-	pfd.OutputPins[0].SetValue(0)
+	pfd.OutputPins[2].SetValue(0)
 	for {
-		pfd.OutputPins[0].Toggle()
+		pfd.OutputPins[2].Toggle()
 		time.Sleep(time.Second / 10)
-		pfd.OutputPins[0].Toggle()
+		pfd.OutputPins[2].Toggle()
 		time.Sleep(time.Duration(float64(time.Second) * pauseTime))
 	}
 }
