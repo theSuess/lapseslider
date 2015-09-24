@@ -45,12 +45,12 @@ func main() {
 }
 
 func startLapse(seconds int, stepsPerMinute int) {
-	go spin(stepsPerMinute)
+	go spin(stepsPerMinute, false)
 	time.Sleep(time.Second * time.Duration(seconds))
 	running = false
 }
 
-func spin(stepsPerMinute int) {
+func spin(stepsPerMinute int, invert bool) {
 	var pauseTime float64
 	pauseTime = float64(60) / float64(stepsPerMinute)
 	pfd := piface.NewPiFaceDigital(spi.DEFAULT_HARDWARE_ADDR, spi.DEFAULT_BUS, spi.DEFAULT_CHIP)
@@ -61,7 +61,13 @@ func spin(stepsPerMinute int) {
 		fmt.Printf("Error on init board: %s", err)
 		return
 	}
-
+	if invert {
+		pfd.Relays[0].SetValue(0)
+		pfd.Relays[1].SetValue(1)
+	} else {
+		pfd.Relays[0].SetValue(1)
+		pfd.Relays[1].SetValue(0)
+	}
 	pfd.OutputPins[2].SetValue(0)
 	running = true
 	for running {
