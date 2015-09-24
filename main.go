@@ -51,7 +51,7 @@ func startLapse(seconds int, stepsPerMinute int) {
 
 func spin(stepsPerMinute int) {
 	var pauseTime float64
-	pauseTime = float64(stepsPerMinute) / float64(60.0)
+	pauseTime = float64(60) / float64(stepsPerMinute)
 	pfd := piface.NewPiFaceDigital(spi.DEFAULT_HARDWARE_ADDR, spi.DEFAULT_BUS, spi.DEFAULT_CHIP)
 
 	// initializes pifacedigital board
