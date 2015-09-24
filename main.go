@@ -13,6 +13,7 @@ import (
 )
 
 var progress int
+var running bool
 
 func main() {
 	// Render engine
@@ -47,6 +48,7 @@ func main() {
 func startLapse(seconds int, stepsPerMinute int) {
 	go spin(stepsPerMinute)
 	time.Sleep(time.Duration(int(time.Second) * seconds))
+	running = false
 }
 
 func spin(stepsPerMinute int) {
@@ -62,7 +64,8 @@ func spin(stepsPerMinute int) {
 	}
 
 	pfd.OutputPins[2].SetValue(0)
-	for {
+	running = true
+	for running {
 		pfd.OutputPins[2].Toggle()
 		time.Sleep(time.Second / 10)
 		pfd.OutputPins[2].Toggle()
